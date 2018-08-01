@@ -3,15 +3,17 @@
 
   <head>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.js"></script>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="lib/p5.js"></script>
+    <script src="lib/p5.dom.js"></script>
+    <script src="lib/canvasjs.min.js"></script>
 
-    <script src="systemModel.js"></script>
-    <script src="systemView.js"></script>
-    <script src="systemPositionChart.js"></script>
-    <script src="interfaceController.js"></script>   
-    <script src="sketch.js"></script>
+    <script src="scripts/systemModel.js"></script>
+    <script src="scripts/systemView.js"></script>
+    <script src="scripts/systemPositionChart.js"></script>
+    <script src="scripts/speedAndPositionChart.js"></script>
+    <script src="scripts/stateSpaceChart.js"></script>
+    <script src="scripts/interfaceController.js"></script>   
+    <script src="scripts/sketch.js"></script>
     
 
 
@@ -20,7 +22,11 @@
   <body>
     <h1>Puxa essa Massa - The Game</h1>
     <p>Simulação de um sistema massa-mola de primeira ordem. <br> Experimente colocar parâmetros negativos!!!</p>
+
     <div id="c1"></div>
+    <div id="graph1" style="height:250px; float:bottom; clear:left"></div>
+    <div id="graph2" style="height:250px; float:bottom; clear:left"></div>
+    
   </body>
 
 </html>
