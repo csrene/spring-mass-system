@@ -9,6 +9,7 @@ var myp5 = new p5 ( function (p) {
     var cnv;
     var controller;
     var systemSpeedAndPosChart;
+    var systemForcesChart;
 
     var massX=0;
     var rocketX=0;
@@ -21,29 +22,18 @@ var myp5 = new p5 ( function (p) {
         
         systemModel = new SpringMassSystem();
         systemView = new SpringMassSystemView(systemModel,p);
-        cnv = p.createCanvas(1000, 210);        
-        posGraphDiv = p.createDiv();        
-        posGraphDiv.attribute('id','positionGraph');
-        posGraphDiv.attribute('style','height: 250px');
-        //posGraphDiv.position(5,50);
-        systemPositionChart = new SystemPositionChart('Posição', posGraphDiv.attribute('id'));
-        systemSpeedAndPosChart = new SpeedAndPositionChart('Posição e Velocidade', 'graph1');
-        stateSpaceChart = new StateSpaceChart('Espaço de estados','graph2');
-        speedGraphDiv = p.createDiv();
-        
-        speedGraphDiv.attribute('id','speedGraph');
-        speedGraphDiv.attribute('style','height: 250px');
-        //speedGraphDiv.position(550,50);
-        systemSpeedChart = new SystemPositionChart('Velocidade', speedGraphDiv.attribute('id'));
+        cnv = p.createCanvas(800, 210);        
+        cnv.parent('c1');
 
+        systemSpeedAndPosChart = new SpeedAndPositionChart('Posição e Velocidade', 'graph-speed-pos');
+        stateSpaceChart = new StateSpaceChart('Espaço de estados','graph-state-space');
+        systemForcesChart = new SpeedAndPositionChart('Força aplicada','graph-forces');
+        
+      
         controller = new InterfaceController(p,cnv,systemModel,systemView);       
-
-        
-
         controller.setupDragListeners();
-
-        p.drawAndSetupParamInputs();
         
+        /*
         // Reset Position Button
         p.buttonResetPosition = p.createButton('Resetar Posição');        
         p.buttonResetPosition.position(220,490);
@@ -69,20 +59,19 @@ var myp5 = new p5 ( function (p) {
             p.inputK.value(systemModel.K);
             p.inputC.value(systemModel.C);
         });
+        */
         // Aplly force Button
         p.button = p.createButton('Aplicar força');
-        p.button.position(p.buttonResetParams.x+200, 310);
+        //p.button.position(p.buttonResetParams.x+200, 310);
         controller.setupForceButton(p.button);
-        /*
-        */
-
+      
 
         p.stroke(0);        
     };
 
     p.draw = function () {       
 
-        p.background(255);     
+        p.background(230);     
         p.fill(0);
         p.rect(0, p.height-10, p.width, 10);
         
@@ -103,18 +92,19 @@ var myp5 = new p5 ( function (p) {
         systemView.makeDrawing(p.pressed);
         stateSpaceChart.updateChart(true,systemModel.x1,systemModel.x2);
         if(k%10 ==0){
-            //systemPositionChart.updateChart(true,systemModel.x1);
-            //systemSpeedChart.updateChart(true,systemModel.x2);
+            systemForcesChart.updateChart(true, systemModel.u, systemModel.x2);
             systemSpeedAndPosChart.updateChart(true,systemModel.x1,systemModel.x2);
             
             k = 1;
         }
+        /*
         p.text("Massa (kg)", p.inputM.x+40,350);
         p.text("K (constante da mola) (N/m)", p.inputM.x+40,375);
         p.text("C (constante de atrito viscoso) (N.s/m)", p.inputM.x+40,400);
+        */
         k++;
     };     
-
+    /*
     p.drawAndSetupParamInputs = function() {
         p.inputM = p.createInput();
         p.inputK = p.createInput();
@@ -133,4 +123,6 @@ var myp5 = new p5 ( function (p) {
         p.inputK.value(systemModel.K);
         p.inputC.value(systemModel.C);
     };
+    */
+    
 });
